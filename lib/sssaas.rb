@@ -1,4 +1,4 @@
-require 'securerandom'
+require_relative './util'
 
 module SSSAAS
     class Secrets
@@ -8,14 +8,8 @@ module SSSAAS
         #   k - minimum number to recreate
         #   secret - secret to hide
         def initialize()
-            # 512-bit prime
+            # 256-bit prime
             @prime = 99995644905598542077721161034987774965417302630805822064337798850767846245779
-        end
-
-        def random()
-            return SecureRandom.random_number(@prime)
         end
     end
 end
-
-puts SSSAAS::Secrets.new.inverse(10)
