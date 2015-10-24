@@ -9,7 +9,7 @@ module SSSAAS
         numbers = [0]
         polynomial = []
         (0...secret.size).each do |i|
-            polynomial.push []
+            polynomial.push [secret[i]]
             (0...minimum).each do |j|
                 value = @util.random()
                 while numbers.include? value

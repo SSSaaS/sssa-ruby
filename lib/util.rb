@@ -48,7 +48,11 @@ module SSSAAS
         def evaluate_polynomial(coefficients, value)
             result = 0
             coefficients.each_with_index do |coefficient, exponent|
-                result += coefficient * value**exponent
+                expmod = 1
+                (0...exponent).each do
+                    expmod = (expmod * value) % @prime
+                end
+                result += coefficient * expmod
                 result = result % @prime
             end
 
