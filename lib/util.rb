@@ -2,7 +2,9 @@ require 'securerandom'
 require 'base64'
 
 module SSSAAS
-    class Utils
+    class Util
+        attr_accessor :prime
+
         def initialize()
             # 256-bit prime
             @prime = 99995644905598542077721161034987774965417302630805822064337798850767846245779
@@ -12,7 +14,7 @@ module SSSAAS
             return SecureRandom.random_number(@prime)
         end
 
-        def splitToInt(secret)
+        def split_ints(secret)
             result = []
 
             secret.scan(/.{1,32}/) do |part|
@@ -29,7 +31,7 @@ module SSSAAS
             return result
         end
 
-        def mergeInts(secrets)
+        def merge_ints(secrets)
             result = ""
 
             secrets.each_with_index do |secret, index|
@@ -43,7 +45,7 @@ module SSSAAS
             return result
         end
 
-        def evaluatePolynomial(coefficients, value)
+        def evaluate_polynomial(coefficients, value)
             result = 0
             coefficients.each_with_index do |coefficient, exponent|
                 result += coefficient * value**exponent
@@ -53,11 +55,11 @@ module SSSAAS
             return result
         end
 
-        def toBase64(number)
+        def to_base64(number)
             return Base64.urlsafe_encode64(("0"*(64-number.to_s(16).size) + number.to_s(16)).scan(/../).map{|x| x.hex.chr}.join)
         end
 
-        def fromBase64(number)
+        def from_base64(number)
             segment = Base64.urlsafe_decode64(number).split('').map do |x|
                 if x.ord > 15
                     x.ord.to_s(16)
@@ -79,8 +81,11 @@ module SSSAAS
             end
         end
 
-        def modInverse(number)
+        def mod_inverse(number)
             remainder = gcd(@prime, number % @prime)[2]
+            if (number < 0)
+                remainder *= -1
+            end
             return (@prime + remainder) % @prime
         end
     end
