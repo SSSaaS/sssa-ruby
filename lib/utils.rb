@@ -1,7 +1,7 @@
 require 'securerandom'
 require 'base64'
 
-module SSS
+module SSSA
     class Utils
         attr_accessor :prime
 

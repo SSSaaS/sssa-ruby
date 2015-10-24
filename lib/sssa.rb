@@ -1,8 +1,8 @@
 require_relative './utils.rb'
 
-module SSS
+module SSSA
     @prime = 99995644905598542077721161034987774965417302630805822064337798850767846245779
-    @util = SSS::Utils.new
+    @util = SSSA::Utils.new
 
     def self.create(minimum, shares, raw)
         secret = @util.split_ints(raw)
