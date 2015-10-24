@@ -8,8 +8,6 @@ class TestSSSAAS < Test::Unit::TestCase
         minimum = [4, 6, 20]
         shares = [5, 100, 100]
         values.each_with_index do |value, index|
-            puts ""
-            puts util.split_ints value
             assert_equal(value, SSSAAS::combine(SSSAAS::create(minimum[index], shares[index], value)), "Error! Splitting and merging of ints not working!")
         end
     end

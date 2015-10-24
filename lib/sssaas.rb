@@ -10,7 +10,7 @@ module SSSAAS
         polynomial = []
         (0...secret.size).each do |i|
             polynomial.push [secret[i]]
-            (0...minimum).each do |j|
+            (1...minimum).each do |j|
                 value = @util.random()
                 while numbers.include? value
                     value = @util.random()
@@ -42,8 +42,6 @@ module SSSAAS
     def self.combine(shares)
         secrets = []
 
-        puts ""
-
         shares.each_with_index do |share, index|
             if share.size % 88 != 0
                 return
@@ -57,8 +55,6 @@ module SSSAAS
                 secrets[index][i] = [@util.from_base64(cshare[0...44]), @util.from_base64(cshare[44...88])]
             end
         end
-
-        puts secrets.to_s
 
         secret = [0] * secrets[0].size
 
@@ -80,10 +76,6 @@ module SSSAAS
                 secret[part_index] = (secret[part_index] + working) % @prime
             end
         end
-
-        puts "secret: "
-        puts secret.to_s
-        puts ""
 
         return @util.merge_ints(secret)
     end
