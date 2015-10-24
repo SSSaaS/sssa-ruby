@@ -1,8 +1,8 @@
-require_relative './util'
+require_relative './utils.rb'
 
-module SSSAAS
+module SSS
     @prime = 99995644905598542077721161034987774965417302630805822064337798850767846245779
-    @util = SSSAAS::Util.new
+    @util = SSS::Utils.new
 
     def self.create(minimum, shares, raw)
         secret = @util.split_ints(raw)

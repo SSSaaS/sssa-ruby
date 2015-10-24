@@ -1,3 +1,3 @@
 require 'test/unit'
-require_relative './util.rb'
-require_relative './sssaas.rb'
+require_relative './utils.rb'
+require_relative './sss.rb'

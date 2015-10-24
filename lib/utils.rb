@@ -1,8 +1,8 @@
 require 'securerandom'
 require 'base64'
 
-module SSSAAS
-    class Util
+module SSS
+    class Utils
         attr_accessor :prime
 
         def initialize()
