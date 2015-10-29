@@ -1,7 +1,7 @@
 require_relative './utils.rb'
 
 module SSSA
-    @prime = 99995644905598542077721161034987774965417302630805822064337798850767846245779
+    @prime = 115792089237316195423570985008687907853269984665640564039457584007913129639747
     @util = SSSA::Utils.new(@prime)
 
     # Create a new array of Shamir's Shares with a minimum, total, and secret
@@ -45,7 +45,7 @@ module SSSA
 
     # Takes a set of shares and combines them to a secret value using Shamir's
     # Secret Sharing Algorithm. Each share must be a string of base-64 encoded
-    # shares of length modulo 88 base64 characters (512 bits in binary) 
+    # shares of length modulo 88 base64 characters (512 bits in binary)
     def self.combine(shares)
         secrets = []
 
