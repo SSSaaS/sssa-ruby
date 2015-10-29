@@ -42,4 +42,13 @@ class TestSSSAUtils < Test::Unit::TestCase
             assert_equal(1, result, "Error! mod_inverse not working!")
         end
     end
+
+    def test_evaluate_polynomial()
+        util = SSSA::Utils.new
+        values = [[[20, 21, 42], 0], [[0, 0, 0], 4], [[1, 2, 3, 4, 5], 10]]
+        results = [20, 0, 54321]
+        values.each_with_index do |value, index|
+            assert_equal(results[index], util.evaluate_polynomial(value[0], value[1]))
+        end
+    end
 end

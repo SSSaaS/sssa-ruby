@@ -5,15 +5,17 @@ module SSSA
     class Utils
         attr_accessor :prime
 
-        def initialize()
-            # 256-bit prime
-            @prime = 99995644905598542077721161034987774965417302630805822064337798850767846245779
+        def initialize(prime=99995644905598542077721161034987774965417302630805822064337798850767846245779)
+            @prime = prime
         end
 
+        # Returns a random number on 0 to @prime-1, inclusive.
         def random()
             return SecureRandom.random_number(@prime)
         end
 
+        # split_ints and merge_ints converts between string and integer array,
+        # where the integer is right-padded until it fits a 256 bit integer.
         def split_ints(secret)
             result = []
 
@@ -45,6 +47,10 @@ module SSSA
             return result
         end
 
+        # This evaluates a polynomial with reversed coefficients at a given
+        # value. Namely, given the array [a, b, c, d], and x=value, the equation
+        # is:
+        # a + bx + cx^2 + dx^3
         def evaluate_polynomial(coefficients, value)
             result = 0
             coefficients.each_with_index do |coefficient, exponent|
@@ -59,6 +65,11 @@ module SSSA
             return result
         end
 
+        # The to_base64 and from_base64 converts between base 10 and base 64
+        # integers, with a left-zero-padded, fixed-size hex representation.
+        # This is cross-compatible with the go implementation, and by changing
+        # base versus encoding as a string, it reduces the size of the
+        # representation. Note: the output is always 44 characters.
         def to_base64(number)
             return Base64.urlsafe_encode64(("0"*(64-number.to_s(16).size) + number.to_s(16)).scan(/../).map{|x| x.hex.chr}.join)
         end
@@ -74,6 +85,11 @@ module SSSA
             return (segment+["00"]*(32-segment.size)).join.hex
         end
 
+        # Uses extended Euclidian algorithm to compute the GCD of a pair of
+        # numbers, and returns [gcd, x, y], such that gcd = ax+ by.
+        #
+        # Note: computing the GCD over a finite field with a = @prime means that
+        # GCD will always return 1.
         def gcd(a, b)
             if b == 0
                 return [a, 1, 0]
@@ -85,6 +101,9 @@ module SSSA
             end
         end
 
+        # Computes the multiplicitive inverse of the given number on the finite
+        # field. Note: number should never be less than zero; however, if it is,
+        # the inverse is inverted
         def mod_inverse(number)
             remainder = gcd(@prime, number % @prime)[2]
             if (number < 0)
