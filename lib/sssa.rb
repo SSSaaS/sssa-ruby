@@ -45,7 +45,7 @@ module SSSA
 
     # Takes a set of shares and combines them to a secret value using Shamir's
     # Secret Sharing Algorithm. Each share must be a string of base-64 encoded
-    # shares of length modulo 256 
+    # shares of length modulo 88 base64 characters (512 bits in binary) 
     def self.combine(shares)
         secrets = []
 
