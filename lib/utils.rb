@@ -19,32 +19,27 @@ module SSSA
         def split_ints(secret)
             result = []
 
-            secret.scan(/.{1,32}/) do |part|
-                segment = part.split('').map do |x|
-                    if x.ord > 15
-                        x.ord.to_s(16)
-                    else
-                        "0" + x.ord.to_s(16)
-                    end
-                end
-                result.push (segment+["00"]*(32-segment.size)).join.hex
-            end
+            secret.split('').map { |x|
+                data = x.unpack("H*")[0]
+                "0"*(data.size % 2) + data
+            }.join("").scan(/.{1,64}/) { |segment|
+                result.push (segment+"0"*(64-segment.size)).hex
+            }
 
             return result
         end
 
         def merge_ints(secrets)
-            result = ""
+            result = []
 
-            secrets.each_with_index do |secret, index|
-                if index == secrets.size-1
-                    result += ("0"*(64-secret.to_s(16).size) + secret.to_s(16)).scan(/../).map{|x| x.hex.chr}.join.gsub(/\x00*$/, '')
-                else
-                    result += ("0"*(64-secret.to_s(16).size) + secret.to_s(16)).scan(/../).map{|x| x.hex.chr}.join
-                end
-            end
+            secrets.each { |int|
+                data = int.to_s(16)
+                ("0"*(64-data.size) + data).scan(/../) { |segment|
+                    result.push segment.hex
+                }
+            }
 
-            return result
+            return result.pack('C*').force_encoding("utf-8").gsub(/\u0000*$/, '')
         end
 
         # This evaluates a polynomial with reversed coefficients at a given
