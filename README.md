@@ -1,4 +1,4 @@
-# sssaas-ruby
+# sssa-ruby
 An implementation of Shamir's Secret Sharing Algorithm in Ruby  
 
     Copyright (C) 2015 Alexander Scheel, Joel May, Matthew Burket  
@@ -20,8 +20,10 @@ We welcome pull requests, issues, security advice on this library, or other
 contributions you feel are necessary. Feel free to open an issue to discuss
 any questions you have about this library.
 
-The reference implementation for this cross-language project was written in Go.
-Please consult the golang library [here](https://github.com/SSSAAS/sssa-golang).
+The reference implementation for this cross-language project was written in Go, [here](https://github.com/SSSAAS/sssaas-golang).
+Please make sure all tests pass before submitting a pull request. In particular,
+`ruby ./tests/all.rb` will run all internal tests and the [go-libtest](https://github.com/SSSAAS/go-libtest) suite's
+tests should be run against the changes before submission.
 
 For security issues, send a GPG-encrypted email to
 <alexander.m.scheel@gmail.com> with public key
