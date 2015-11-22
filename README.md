@@ -1,4 +1,6 @@
 # sssa-ruby
+[![Build Status](https://travis-ci.org/SSSaaS/sssa-ruby.svg?branch=master)](https://travis-ci.org/SSSaaS/sssa-ruby)
+
 An implementation of Shamir's Secret Sharing Algorithm in Ruby  
 
     Copyright (C) 2015 Alexander Scheel, Joel May, Matthew Burket  
