@@ -1,5 +1,8 @@
 image: ruby:2.1
 
+
+stages:
+  - test
 job1:
   test:
     script:
