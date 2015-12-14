@@ -1,0 +1,4 @@
+image: ruby:2.1
+
+script:
+  - ruby ./tests/all.rb
