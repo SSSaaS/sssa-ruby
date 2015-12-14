@@ -1,4 +1,6 @@
 image: ruby:2.1
 
-script:
-  - ruby ./tests/all.rb
+job1:
+  test:
+    script:
+      - ruby ./tests/all.rb
