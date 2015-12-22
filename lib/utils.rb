@@ -48,12 +48,8 @@ module SSSA
         # a + bx + cx^2 + dx^3
         def evaluate_polynomial(coefficients, value)
             result = 0
-            coefficients.each_with_index do |coefficient, exponent|
-                expmod = 1
-                (0...exponent).each do
-                    expmod = (expmod * value) % @prime
-                end
-                result += coefficient * expmod
+            coefficients.reverse_each do |coefficient|
+                result = result*value + coefficient
                 result = result % @prime
             end
 
