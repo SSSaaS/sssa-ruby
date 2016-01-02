@@ -1,4 +1,11 @@
 image: ruby:2.1
 
-script:
-  - ruby ./tests/all.rb
+
+stages:
+  - test
+
+tests:
+    script:
+      - ruby ./tests/all.rb
+    tags:
+      - ruby
