@@ -86,4 +86,26 @@ module SSSA
 
         return @util.merge_ints(secret)
     end
+
+    # Takes in a given candidate to check if it is a valid secret
+    #
+    # Requirements:
+    #    Length multiple of 88
+    #    Can decode each 44 character block as base64
+    #
+    # Returns only true/false
+    def self.isValidShare?(candidate)
+        if candidate.size % 88 != 0
+            return false
+        end
+
+        count = candidate.size / 44
+        for j in 0..count
+            part = candidate[j*44, (j+1)*44]
+            decode = self.from_base64(part)
+            if decode < 0 || decode > self.prime
+                return false
+            end
+        end
+    end
 end
