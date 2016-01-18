@@ -39,7 +39,7 @@ module SSSA
                 }
             }
 
-            return result.pack('C*').force_encoding("utf-8").gsub(/\u0000*$/, '')
+            return result.pack('C*').force_encoding('UTF-8').encode('UTF-8', 'UTF-8', undef: :replace, invalid: :replace,  replace: '').gsub(/\u0000*$/, '')
         end
 
         # This evaluates a polynomial with reversed coefficients at a given
