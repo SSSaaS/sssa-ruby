@@ -92,7 +92,7 @@ module SSSA
             end
         end
 
-        # Computes the multiplicitive inverse of the given number on the finite
+        # Computes the multiplicative inverse of the given number on the finite
         # field. Note: number should never be less than zero; however, if it is,
         # the inverse is inverted
         def mod_inverse(number)
