@@ -102,10 +102,12 @@ module SSSA
         count = candidate.size / 44
         for j in 0..count
             part = candidate[j*44, (j+1)*44]
-            decode = self.from_base64(part)
-            if decode < 0 || decode > self.prime
+            decode = @util.from_base64(part)
+            if decode < 0 || decode > @prime
                 return false
             end
         end
+
+        return true
     end
 end
